@@ -1,67 +1,68 @@
 # pcf-universal-gantt-chart
 
-## Interactive PCF Gantt Chart Control for Dynamics Grid and Canvas App
+## 캔버스앱과 모델기반앱에서 사용가능한 간트차트 PCF
 
-![example](https://github.com/MaTeMaTuK/pcf-universal-gantt-chart/blob/master/DocumentationAssets/ganttStandard.gif)
+![예시](https://github.com/MaTeMaTuK/pcf-universal-gantt-chart/blob/master/DocumentationAssets/ganttStandard.gif)
 
-## Instruction
-
-The solution is [here](https://github.com/MaTeMaTuK/pcf-universal-gantt-chart/releases) in assets
-
-Quick guide for model driven app is [here](/Model%20Driven%20Guide.md)
-
-Guide with details for canvas app is [here](/Canvas%20Guide.md)
-
-## Configuration
+## 설정
+아래 설정은 원본에 있는 것들만 적혀있습니다. 수정, 추가본은 'Model Driven Guide' 쪽 문서에서 다루겠습니다.
 
 | Parameter Name                                  | Description                                                                                                                    |
 | :---------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
-| Title\*                                         | Specifies name on bar and list table.                                                                                          |
-| Start Time\*                                    | Specifies start time display.                                                                                                  |
-| End Time\*                                      | Specifies end time display.                                                                                                    |
-| Progress                                        | Specifies progress display.                                                                                                    |
-| Parent Record                                   | Specifies record dependency                                                                                                    |
-| Task Type(Option)                               | Specifies record type. Task, milestone, project. You are able to configure option-text mapping in Task Type Mapping parameter. |
-| Display Color(Option)                           | Specifies colors by option set value color.                                                                                    |
-| Display Color(Text)                             | Specifies colors by hex color value.                                                                                           |
-| Display Mode\*                                  | Enables or disables drag and drop feature.                                                                                     |
-| IsSubgrid\*                                     | Specifies gantt as subgrid control.                                                                                            |
-| Default Duration View\*                         | Specifies default duration display.                                                                                            |
-| Task Type Mapping                               | Defines task type to option value                                                                                              |
-| Display Date Format\*                           | Specifies date and time display format.                                                                                        |
-| Time Step\*                                     | Specifies allowed step for move events. Sets in milliseconds.                                                                  |
-| Font Size\*                                     | Specifies font size.                                                                                                           |
-| Header Height\*                                 | Specifies header height.                                                                                                       |
-| Row Height\*                                    | Specifies row height.                                                                                                          |
-| List`s Cell Width\*                             | Specifies task list width. You may set 0 value for list hiding.                                                                |
-| Column Width for Quarter of Day\*               | Specifies period width for Quarter of Day.                                                                                     |
-| Column Width for Column Width for Half of Day\* | Specifies period width for Column Width for Half of Day.                                                                       |
-| Column Width for Column Width for Day\*         | Specifies period width for Column Width for Day.                                                                               |
-| Column Width for Column Width for Week\*        | Specifies period width for Column Width for Week.                                                                              |
-| Column Width for Column Width for Month\*       | Specifies period width for Column Width for Month.                                                                             |
-| Custom Display Name                             | Overrides display name.                                                                                                        |
-| Custom Start Name                               | Overrides start time name.                                                                                                     |
-| Custom End Name                                 | Overrides end time name.                                                                                                       |
-| Custom Progress Name                            | Overrides progress name.                                                                                                       |
-| Custom Progress Color                           | Specifies the taskbar progress fill color.                                                                                     |
-| Custom Progress Selected Color                  | Specifies the taskbar progress fill color on select.                                                                           |
-| Custom Background Color                         | Specifies the taskbar background fill color.                                                                                   |
-| Custom Background Selected Color                | Specifies the taskbar background fill color on select.                                                                         |
+| Title\*                                         | 막대 및 목록의 이름                                                                                          |
+| Start Time\*                                    |  시작 시간                                                                                                  |
+| End Time\*                                      | 종료시간                                                                                                    |
+| Progress                                        | 진행율(0~100)                                                                                                    |
+| Parent Record                                   | Task의 부모레코드                                                                                                    |
+| Task Type(Option)                               | 레코드의 종류. Task, milestone, project. 옵션 매개변수에서 option-text 가 매핑된 레코드를 이용해 타입을 설정할 수 있다. |
+| Display Color(Option)                           | 선택 레코드에서 지정된 색상을 이용해 막대의 색상 지정                                                                                    |
+| Display Color(Text)                             | 헥스값(16진수)를 이용해 색상 지정                                                                                           |
+| Display Mode\*                                  | 드래그앤 드롭 활성화 여부                                                                                     |
+| IsSubgrid\*                                     | 간트차트의 서브그리드 사용여부                                                                                            |
+| Default Duration View\*                         | 기본 기간 보기를 설정                                                                                            |
+| Task Type Mapping                               | Task type을 선택값으로 설정                                                                                              |
+| Display Date Format\*                           | 날짜및 시간 표시를 지정                                                                                        |
+| Time Step\*                                     | 시간 이동 이벤트의 단위를 지정. 밀리세컨드 단위                                                                  |
+| Font Size\*                                     | 폰트 크기 설정                                                                                                           |
+| Header Height\*                                 | 헤더의 높이 설정                                                                                                       |
+| Row Height\*                                    | 행의 높이 설정                                                                                                          |
+| List`s Cell Width\*                             | 목록의 셀 너비. 0 을 설정하면 목록이 숨겨짐                                                                |
+| Column Width for Quarter of Day\*               | 6시간 단위의 너비 길이                                                                                     |
+| Column Width for Column Width for Half of Day\* | 12시간 단위의 너비 길이                                                                       |
+| Column Width for Column Width for Day\*         | 일 단위의 너비 길이                                                                               |
+| Column Width for Column Width for Week\*        | 주 단위의 너비                                                                              |
+| Column Width for Column Width for Month\*       | 월 단위의 너비.                                                                             |
+| Custom Display Name                             | 이름 명칭 변경.                                                                                                        |
+| Custom Start Name                               | 시작 시간의 명칭 변경.                                                                                                     |
+| Custom End Name                                 | 종료 시간의 명칭 변경                                                                                                       |
+| Custom Progress Name                            | 진행률의 명칭 변경                                                                                                       |
+| Custom Progress Color                           |  진행률의 작업 표시줄의 색상 변경(헥스값)                                                                                     |
+| Custom Progress Selected Color                  | 선택시 작업 표시줄의 색상 변경(헥스값)                                                                          |
+| Custom Background Color                         | 작업 표시줄의 배경 색상 변경(헥스값)                                                                                   |
+| Custom Background Selected Color                | 선택시 작업 표시줄의 배경 색상 변경(헥스값)                                                                        |
 
-\*Required
+\*  필수
 
-### Coloring
+# 색상지정
+기본 색상 또는 사용자 지정 색상에 작업 표시줄의 색상을 설정할 수 있습니다. 기본 색상은 선택 항목, 텍스트 값 또는 엔터티 색상에서 가져올 수 있습니다. 여기에서 레코드 팔레트의 기본 색상을 만들 수 있습니다.
 
-You are able to setup record coloring on base color or custom colors.
-The base color gets from option set, text value or entity color. You can create base color for record palette [here](https://ant.design/docs/spec/colors#Palette-Generation-Tool).
+Gantt는 팔레트 색상에서 가져오며 #2(배경값 - background), #3(선택시 배경값 - background), #4(진행률의 색상 - progress color), #5(선택된 진행률 색상 - progress color)에서 가져옵니다
 
-Gantt takes from palette color #2 for background, #3 for selected background, #4 for progress color, #5 for selected progress color
+사용자 지정 색상은 색상 생성이 마음에 들지 않는 경우 재정의하도록 구성될 수 있습니다.
 
-Custom colors might be configured for overriding if you don't like color generation.
+## 개요
 
-## Additional information
+원본 솔루션 [here](https://github.com/MaTeMaTuK/pcf-universal-gantt-chart/releases) in assets
 
+원본 모델기반 앱 설정 설명 [here](/Model%20Driven%20Guide.md)
+
+원본 캔버스 앱 설정 설명 [here](/Canvas%20Guide.md)
+
+한국어 모델기반 앱 설정 설명 [here](/Model%20Driven%20Guide%20Korean.md)
+
+## 추가 정보
 If you need your language you may contact with me or open an issue, where you may share your translations.
+변경이 필요하다면 연락을 주면 된다고 하지만 2년 전부터 활동을 찾을 수 없는것으로 보아 원본을 제작한 분에게서 조언을 얻을 수는 없을 것으로 보인다.
 
 #### License GPLv3
 
@@ -69,7 +70,5 @@ If you need your language you may contact with me or open an issue, where you ma
 
 #### [Based on](https://github.com/MaTeMaTuK/gantt-task-react)
 
-
-## README Korean
-[here](/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%84%A4%EB%AA%85.md)
-위 프로젝트는 pcf-universal-gantt-chart 를 수정하여 사용하기 위한 것입니다. 수정된 부분에 관한 한국 설명은 nanenchanga2@gmail.com 으로 알려주시길 바랍니다.
+## 해당 수정사항을 사용하기 위해 필요한 수정작업
+`npm install` 명령어로 생성될 `\node_modules\gantt-task-react\dist\types` 경로에 있는 `Task` 인터페이스에 `subOptionValue?:string;`와 `subLookupValue?:string;`를 추가해준다.(해당 설명은 변경될 내용에 따라 달라질 예정)
