@@ -3,7 +3,9 @@ import * as React from "react";
 export const createHeaderLocal = (
   recordDisplayName: string,
   startDisplayName: string,
-  endDisplayName: string
+  endDisplayName: string,
+  subOptionDisplayName:string,
+  subLookUpDisplayName:string,
 ): React.FunctionComponent<{
   headerHeight: number;
   rowWidth: string;
@@ -70,6 +72,36 @@ export const createHeaderLocal = (
             }}
           >
             &nbsp;{endDisplayName}
+          </div>
+          <div
+            className="Gantt-Table_Header-Separator"
+            style={{
+              height: headerHeight * 0.5,
+              marginTop: headerHeight * 0.25,
+            }}
+          />
+          <div
+            className="Gantt-Table_Header-Item"
+            style={{
+              minWidth: rowWidth,
+            }}
+          >
+            &nbsp;{subOptionDisplayName}
+          </div>
+          <div
+            className="Gantt-Table_Header-Separator"
+            style={{
+              height: headerHeight * 0.5,
+              marginTop: headerHeight * 0.25,
+            }}
+          />
+          <div
+            className="Gantt-Table_Header-Item"
+            style={{
+              minWidth: rowWidth,
+            }}
+          >
+            &nbsp;{subLookUpDisplayName}
           </div>
         </div>
       </div>

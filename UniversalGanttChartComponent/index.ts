@@ -22,17 +22,25 @@ export class UniversalGanttChartComponent
   private _parentRecordStr = "parentRecord";
   private _displayColorText = "displayColorText";
   private _displayColorOption = "displayColorOption";
+  private _selectedtaskNameStr = "taskName";
   private _dataSetName = "entityDataSet";
+  private _tasksDatasetName = "tasksDataset";
   private _defaultEntityColor = "#2975B2";
   private _defaultTaskType: TaskType = "task";
   private _viewMode: ViewMode;
   private _crmUserTimeOffset: number;
   private _dataSet: DataSet;
+  private _tasksDataset: DataSet;
   private _locale: string;
   private _taskTypeMap: any;
   private _projects: {
     [index: string]: boolean;
   };
+
+
+  private _subOptionStr = "subOption";
+  private _subLookUpStr = "subLookup";
+  private _subLookupRecordNameStr = "subLookupRecordName";
 
   constructor() {
     this.handleViewModeChange = this.handleViewModeChange.bind(this);
@@ -54,7 +62,27 @@ export class UniversalGanttChartComponent
       context.userSettings.getTimeZoneOffsetMinutes(new Date()) +
       new Date().getTimezoneOffset();
     this._projects = {};
-    context.parameters.entityDataSet.paging.setPageSize(5000);
+    //cr072_onlynametable
+    console.log(context.parameters.entityDataSet.getTargetEntityType());
+    const subParentEntityName = context.parameters.subLookupEntityName.raw;
+    const subParentId = context.parameters.entityDataSet.columns.find((c) => c.alias=== "subLookup");
+    
+    //아래를 이용해서 연결을 만들어둔 것을 이용해 이후 연결을 이용하여 검색할 수 있다고 하는데 잘 모르겠음
+    if(subParentEntityName!=null && subParentId!=null){
+      context.parameters.entityDataSet.linking.addLinkedEntity({
+        name: "cr072_gantttabletest",
+        from : "cr072_gantttabletestid",
+        to:  "cr072_onlynametable",
+        linkType: "inner",
+        alias: "ParentRelation"
+        })    
+    }
+
+    //debugger;
+    //(this._dataSet as any).addColumn("cr072_subname", "ParentRelation");
+    //debugger;
+
+    context.parameters.entityDataSet.paging.setPageSize(1000);
   }
 
   public updateView(context: ComponentFramework.Context<IInputs>): void {
@@ -66,6 +94,7 @@ export class UniversalGanttChartComponent
    */
   private async updateViewAsync(context: ComponentFramework.Context<IInputs>) {
     this._dataSet = context.parameters.entityDataSet;
+    this._tasksDataset = context.parameters.tasksDataset;
     //Columns retrieve
     const columns = this._dataSet.columns;
     const nameField = columns.find((c) => c.alias === this._displayNameStr);
@@ -84,6 +113,7 @@ export class UniversalGanttChartComponent
       const tasks = await this.generateTasks(
         context,
         this._dataSet,
+        this._tasksDataset,
         !!progressField
       );
 
@@ -104,6 +134,11 @@ export class UniversalGanttChartComponent
       const progressDisplayName =
         context.parameters.customHeaderProgressName.raw ||
         (!!progressField ? progressField.displayName : "");
+
+      //추가 헤더
+      const subOptionDisplayName = context.parameters.subOptionHeaderDisplayName.raw || "선택항목"; //리소스에서 사용 가능하게 해야함
+      const subLookupDisplayName = context.parameters.subLookUpHeaderDisplayName.raw || "조회항목"; //리소스에서 사용 가능하게 해야함
+
 
       //height setup
       const rowHeight = !!context.parameters.rowHeight.raw
@@ -131,7 +166,7 @@ export class UniversalGanttChartComponent
         context.parameters.displayDateFormat.raw === "datetime";
 
       const fontSize = context.parameters.fontSize.raw || "14px";
-      debugger;
+      //debugger;
       //create gantt
       const gantt = React.createElement(UniversalGantt, {
         context,
@@ -162,6 +197,8 @@ export class UniversalGanttChartComponent
         columnWidthMonth,
         onViewChange: this.handleViewModeChange,
         onExpanderStateChange: this.handleExpanderStateChange,
+        subOptionDisplayName,
+        subLookupDisplayName,
       });
 
       ReactDOM.render(gantt, this._container);
@@ -173,8 +210,10 @@ export class UniversalGanttChartComponent
   private async generateTasks(
     context: ComponentFramework.Context<IInputs>,
     dataset: ComponentFramework.PropertyTypes.DataSet,
+    tasksDataset: ComponentFramework.PropertyTypes.DataSet,
     isProgressing: boolean
-  ) {
+  ) 
+  {
     let entityTypesAndColors: {
       entityLogicalName: string;
       backgroundColor: string;
@@ -183,6 +222,7 @@ export class UniversalGanttChartComponent
       progressSelectedColor: string;
     }[] = [];
     const isDisabled = context.parameters.displayMode.raw === "readonly";
+
     let tasks: Task[] = [];
     for (const recordId of dataset.sortedRecordIds) {
       const record = dataset.records[recordId];
@@ -209,6 +249,12 @@ export class UniversalGanttChartComponent
       const entRef = record.getNamedReference();
       const entName = entRef.etn || <string>(<any>entRef).logicalName;
 
+      //추가본
+      const subOption = <string>record.getValue(this._subOptionStr);
+      const subLookupEntityName = context.parameters.subLookupEntityName.raw || "";
+      const subLookupRecordName = context.parameters.subLookupRecordName.raw || "";
+      const subLookup = <ComponentFramework.EntityReference>(record.getValue(this._subLookUpStr));
+      
       let entityColorTheme = entityTypesAndColors.find(
         (e) => e.entityLogicalName === entName
       );
@@ -240,6 +286,7 @@ export class UniversalGanttChartComponent
           type: taskType,
           isDisabled: isDisabled,
           styles: { ...entityColorTheme },
+          
         };
         if (taskType === "project") {
           const expanderState = this._projects[taskId];
@@ -265,6 +312,65 @@ export class UniversalGanttChartComponent
             }
           }
         }
+
+        //추가
+        if(subOption)
+        {
+          
+          //debugger;
+          const subOptionColum = dataset.columns.find((c) => c.alias == this._subOptionStr)
+          const subOptionLogicalName = !!subOptionColum ? subOptionColum.name : "";
+          
+          
+          const subOptionResult = await context.utils.getEntityMetadata(entName, [
+            subOptionLogicalName,
+          ]);
+          
+          const subAttributes: Xrm.EntityMetadata.AttributesCollection =   subOptionResult["Attributes"];
+          
+          const subOptionMetadata = subAttributes.getByName(subOptionLogicalName);
+
+           const subOptionLable = subOptionMetadata.attributeDescriptor.OptionSet.find(
+             (o) => o.Value === +subOption
+           )?.Label;
+          //debugger;
+
+          task.subOptionValue = subOptionLable || "못 불러옴";
+
+        }
+
+        if(subLookup)
+        {
+          debugger;
+          if(tasksDataset != undefined)
+          {
+            //debugger;
+
+            //(dataset as any).addColumn("cr072_subname", "ParentRelation");
+            //const subLookupColum = dataset.columns.find((c) => c.alias == this._subLookUpStr);
+
+            //const sublookupGetLinkedEntities = dataset.linking.getLinkedEntities();
+
+            //아래것들이 안되서 문제
+            //const sublookupGetLinkedId = dataset.columns.find((c) => c.alias == "cr072_onlynametableid");
+            //const testsublookup = dataset.records["edf08f6f-79dd-ed11-8846-002248cc35dc"].getValue("ParentRelation.cr072_subname");
+
+            
+            const subLookupGetColumnItem = <string>tasksDataset.records[subLookup.id.guid].getValue(this._selectedtaskNameStr);
+            
+            
+
+            //debugger;
+
+            task.subLookupValue = subLookupGetColumnItem || "";
+          }
+          else
+          {
+            task.subLookupValue = subLookup.name;
+          }
+
+        }
+
         tasks.push(task);
       } catch (e) {
         throw new Error(
@@ -297,6 +403,7 @@ export class UniversalGanttChartComponent
           optionMetadata.attributeDescriptor.OptionSet.find(
             (o) => o.Value === +optionValue
           )?.Color || entityColor;
+          //debugger;
       } else {
         //Get by Entity Color
         const result = await context.utils.getEntityMetadata(entName, [
@@ -332,6 +439,7 @@ export class UniversalGanttChartComponent
     taskTypeOption: string,
     taskTypeMapping: string | null
   ): TaskType {
+    //debugger;
     let taskType: TaskType = this._defaultTaskType;
     if (taskTypeOption && taskTypeMapping) {
       if (!this._taskTypeMap) {

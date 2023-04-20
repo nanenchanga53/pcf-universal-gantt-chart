@@ -4,7 +4,8 @@ import { Task } from "gantt-task-react";
 export const createTaskListLocal = (
   includeTime: boolean,
   onClick: (task: Task) => void,
-  formatDateShort: (value: Date, includeTime?: boolean) => string
+  formatDateShort: (value: Date, includeTime?: boolean) => string,
+  
 ): React.FunctionComponent<{
   rowHeight: number;
   rowWidth: string;
@@ -122,6 +123,26 @@ export const createTaskListLocal = (
                 title={formatDateShort(t.end, includeTime)}
               >
                 &nbsp;{formatDateShort(t.end, includeTime)}
+              </div>
+              <div
+                className="Gantt-Task-List_Cell"
+                style={{
+                  minWidth: rowWidth,
+                  maxWidth: rowWidth,
+                }}
+                title={"subOptionTitle"}//나중에 추가한 항목을 타이틀을 변경 가능할지 생각
+              >
+                &nbsp;{t.subOptionValue || ""}
+              </div>
+              <div
+                className="Gantt-Task-List_Cell"
+                style={{
+                  minWidth: rowWidth,
+                  maxWidth: rowWidth,
+                }}
+                title={"subLookUpTitle"}//나중에 추가한 항목을 타이틀을 변경 가능할지 생각
+              >
+                &nbsp;{t.subLookupValue || ""}
               </div>
             </div>
           );

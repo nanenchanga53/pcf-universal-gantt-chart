@@ -41,12 +41,16 @@ export type UniversalGanttProps = {
   columnWidthMonth: number;
   onViewChange: (viewMode: ViewMode) => void;
   onExpanderStateChange: (itemId: string, expanderState: boolean) => void;
+
+  //추가분
+  subOptionDisplayName:string;
+  subLookupDisplayName:string;
 } & EventOption &
   DisplayOption;
 export const UniversalGantt: React.FunctionComponent<UniversalGanttProps> = (
   props
 ) => {
-  debugger;
+  //debugger;
   const [view, setView] = React.useState(props.viewMode);
   const { context } = props;
   // Events
@@ -132,7 +136,9 @@ export const UniversalGantt: React.FunctionComponent<UniversalGanttProps> = (
     TaskListHeader: createHeaderLocal(
       props.recordDisplayName,
       props.startDisplayName,
-      props.endDisplayName
+      props.endDisplayName,
+      props.subOptionDisplayName,
+      props.subLookupDisplayName,
     ),
     TooltipContent: createTooltip(
       props.startDisplayName,

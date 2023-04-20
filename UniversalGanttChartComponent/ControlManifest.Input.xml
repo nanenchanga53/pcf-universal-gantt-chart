@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="UniversalGanttGridComponent" constructor="UniversalGanttChartComponent" version="0.1.5" display-name-key="Universal Gantt Chart Component" description-key="Component shows tasks on a timeline. You can move them on the chart." control-type="standard" >
+  <control namespace="UniversalGanttGridComponent" constructor="UniversalGanttChartComponent" version="0.2.3" display-name-key="Universal Gantt Chart Component" description-key="Component shows tasks on a timeline. You can move them on the chart." control-type="standard" >
     <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
     If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
     Example1:
@@ -36,7 +36,20 @@
         display-name-key="Display Color(Option)" description-key="Specifies record color by option value(hex code)" of-type="OptionSet" usage="input" required="false" />
       <property-set name="displayColorText" 
         display-name-key="Display Color(Text)" description-key="Specifies record color by text value(hex code)" of-type="SingleLine.Text" usage="input" required="false" />
+
+      <property-set name="subOption" display-name-key="subOption" description-key="for subOption" of-type="OptionSet" usage="input" required="false" />
+      <property-set name="subLookup" display-name-key="subLookupRecord" description-key="sub Lookup record reference" of-type="Lookup.Simple" usage="input" required="false" />
+      
     </data-set>
+    <data-set name="tasksDataset" display-name-key="Dataset_Display_Key" cds-data-set-options="displayCommandBar:true;displayViewSelector:true;displayQuickFind:true">
+      <property-set name="taskName" display-name-key="Property_Display_Key1" description-key="Property_Desc_Key1" of-type="SingleLine.Text" usage="bound" required="false" />    
+    </data-set>
+
+    <property name="subLookupEntityName" display-name-key="subLookup EntityName" description-key="If name subLookup need, write lookup Entity name " of-type="SingleLine.Text" usage="input" required="false" />
+    <property name="subLookupRecordName" display-name-key="subLookup RecordName" description-key="If name subLookup need, write lookup Record name " of-type="SingleLine.Text" usage="input" required="false" />
+
+    <property name="subOptionHeaderDisplayName" display-name-key="subOptionHeader Display Name" description-key="subOptionHeader DisplayName" of-type="SingleLine.Text" usage="input" required="false"/>
+    <property name="subLookUpHeaderDisplayName" display-name-key="subLookUpHeader Display Name" description-key="subLookUpHeader DisplayName" of-type="SingleLine.Text" usage="input" required="false"/>
 
     <property name="displayMode" display-name-key="Display Mode" description-key="Parameter enables or disables progress and datetime controls" of-type="Enum" usage="input" required="true" default-value="editable">
       <value name="editable" display-name-key="Editable">editable</value>
@@ -92,6 +105,8 @@
     <property name="customProgressColor" display-name-key="Custom Progress Color" description-key="Defines Bar progress color" of-type="SingleLine.Text" usage="input" required="false"/>
     <property name="customProgressSelectedColor" display-name-key="Custom Progress Selected Color" description-key="Defines Bar progress color on select" of-type="SingleLine.Text" usage="input" required="false"/>
 
+
+
     <resources>
       <code path="index.ts" order="1"/>
       <css path="../node_modules/gantt-task-react/dist/index.css" order="1" />
@@ -107,6 +122,7 @@
       <resx path="strings/UniversalGanttChartComponent.1053.resx" version="1.0.0" />
       <resx path="strings/UniversalGanttChartComponent.1058.resx" version="1.0.0" />
       <resx path="strings/UniversalGanttChartComponent.3082.resx" version="1.0.0" />
+      <resx path="strings/UniversalGanttChartComponent.1042.resx" version="1.0.0" />
     </resources>
     
     <feature-usage>

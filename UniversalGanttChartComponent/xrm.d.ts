@@ -19,5 +19,33 @@ export namespace Xrm {
       Value: number;
       Color: string;
     }
+
+    interface LookupOptions {
+      /**
+       * Whether the lookup allows more than one item to be selected.
+       */
+      allowMultiSelect: boolean;
+
+      /**
+       * The default entity type.
+       */
+      defaultEntityType: string;
+
+      /**
+       * The default view to use.
+       */
+      defaultViewId: string;
+
+      /**
+       * The entity types to display.
+       */
+      entityTypes: string[];
+
+      /**
+       * The views to be available in the view picker. Only System views are supported (not user views).
+       */
+      viewIds: string[];
+  }
+
   }
 }
