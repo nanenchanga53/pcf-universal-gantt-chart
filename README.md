@@ -70,5 +70,6 @@ If you need your language you may contact with me or open an issue, where you ma
 #### [Based on](https://github.com/MaTeMaTuK/gantt-task-react)
 
 
-## 한국어 설명
-- 위 프로젝트는 pcf-universal-gantt-chart 를 수정하여 사용하기 위한 것입니다. 수정된 부분에 관한 한국 설명은 nanenchanga2@gmail.com 으로 알려주시길 바랍니다.
+## README Korean
+[here](/%ED%95%9C%EA%B5%AD%EC%96%B4%EC%84%A4%EB%AA%85.md)
+위 프로젝트는 pcf-universal-gantt-chart 를 수정하여 사용하기 위한 것입니다. 수정된 부분에 관한 한국 설명은 nanenchanga2@gmail.com 으로 알려주시길 바랍니다.
