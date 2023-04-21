@@ -43,7 +43,7 @@
 
 \*  필수
 
-# 색상지정
+## 색상지정
 기본 색상 또는 사용자 지정 색상에 작업 표시줄의 색상을 설정할 수 있습니다. 기본 색상은 선택 항목, 텍스트 값 또는 엔터티 색상에서 가져올 수 있습니다. 여기에서 레코드 팔레트의 기본 색상을 만들 수 있습니다.
 
 Gantt는 팔레트 색상에서 가져오며 #2(배경값 - background), #3(선택시 배경값 - background), #4(진행률의 색상 - progress color), #5(선택된 진행률 색상 - progress color)에서 가져옵니다
@@ -70,5 +70,3 @@ If you need your language you may contact with me or open an issue, where you ma
 
 #### [Based on](https://github.com/MaTeMaTuK/gantt-task-react)
 
-## 해당 수정사항을 사용하기 위해 필요한 수정작업
-`npm install` 명령어로 생성될 `\node_modules\gantt-task-react\dist\types` 경로에 있는 `Task` 인터페이스에 `subOptionValue?:string;`와 `subLookupValue?:string;`를 추가해준다.(해당 설명은 변경될 내용에 따라 달라질 예정)
