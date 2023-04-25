@@ -4,8 +4,11 @@ export const createHeaderLocal = (
   recordDisplayName: string,
   startDisplayName: string,
   endDisplayName: string,
-  subOptionDisplayName:string,
-  subLookUpDisplayName:string,
+  //아래는 추가분
+  subOptionDisplayName:string,  //선택 헤더 표시 값
+  subLookUpDisplayName:string,  //조회 첫번째 헤더 표시 값
+  subLookUpDisplayName2:string, //조회 두번째 헤더 표시 값
+  subLookUpDisplayName3:string, //조회 세번째 헤더 표시 값
 ): React.FunctionComponent<{
   rowNameWidth: string;
   headerHeight: number;  
@@ -117,6 +120,48 @@ export const createHeaderLocal = (
               }}
             >
               &nbsp;{subLookUpDisplayName}
+            </div>
+          }
+          {
+            subLookUpDisplayName2 != "" &&
+            <div
+              className="Gantt-Table_Header-Separator"
+              style={{
+                height: headerHeight * 0.5,
+                marginTop: headerHeight * 0.25,
+              }}
+            />
+          }
+          {
+            subLookUpDisplayName2 != "" &&
+            <div
+              className="Gantt-Table_Header-Item"
+              style={{
+                minWidth: rowWidth,
+              }}
+            >
+              &nbsp;{subLookUpDisplayName2}
+            </div>
+          }
+          {
+            subLookUpDisplayName3 != "" &&
+            <div
+              className="Gantt-Table_Header-Separator"
+              style={{
+                height: headerHeight * 0.5,
+                marginTop: headerHeight * 0.25,
+              }}
+            />
+          }
+          {
+            subLookUpDisplayName3 != "" &&
+            <div
+              className="Gantt-Table_Header-Item"
+              style={{
+                minWidth: rowWidth,
+              }}
+            >
+              &nbsp;{subLookUpDisplayName3}
             </div>
           }
         </div>

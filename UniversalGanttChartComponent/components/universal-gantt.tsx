@@ -46,6 +46,8 @@ export type UniversalGanttProps = {
   //추가분
   subOptionDisplayName:string;
   subLookupDisplayName:string;
+  subLookupDisplayName2:string;
+  subLookupDisplayName3:string;
 } & EventOption &
   DisplayOption;
 export const UniversalGantt: React.FunctionComponent<UniversalGanttProps> = (
@@ -140,7 +142,9 @@ export const UniversalGantt: React.FunctionComponent<UniversalGanttProps> = (
       props.startDisplayName,
       props.endDisplayName,
       props.subOptionDisplayName,
-      props.subLookupDisplayName
+      props.subLookupDisplayName,
+      props.subLookupDisplayName2,
+      props.subLookupDisplayName3,
     ),
     TooltipContent: createTooltip(
       props.startDisplayName,

@@ -156,6 +156,32 @@ export const createTaskListLocal = (
                 &nbsp;{t.subLookupValue || ""}
               </div>
               }
+              {
+                t.subLookupValue2 != undefined &&
+              <div
+                className="Gantt-Task-List_Cell"
+                style={{
+                  minWidth: rowWidth,
+                  maxWidth: rowWidth,
+                }}
+                title={"subLookUpTitle2"}//나중에 추가한 항목을 타이틀을 변경 가능할지 생각
+              >
+                &nbsp;{t.subLookupValue2 || ""}
+              </div>
+              }
+              {
+                t.subLookupValue3 != undefined &&
+              <div
+                className="Gantt-Task-List_Cell"
+                style={{
+                  minWidth: rowWidth,
+                  maxWidth: rowWidth,
+                }}
+                title={"subLookUpTitle3"}//나중에 추가한 항목을 타이틀을 변경 가능할지 생각
+              >
+                &nbsp;{t.subLookupValue3 || ""}
+              </div>
+              }
             </div>
           );
         })}

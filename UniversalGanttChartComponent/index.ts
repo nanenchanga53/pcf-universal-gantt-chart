@@ -23,10 +23,14 @@ export class UniversalGanttChartComponent
   private _displayColorText = "displayColorText";
   private _displayColorOption = "displayColorOption";
   private _selectedtaskNameStr = "taskName";
+  private _selectedtaskNameStr2 = "taskName2";
+  private _selectedtaskNameStr3 = "taskName3";
   private _dataSetName = "entityDataSet";
   private _tasksDatasetName = "tasksDataset";
   private _SubOptionIsAble = false;
   private _SubLookUpIsAble = false;
+  private _SubLookUpIsAble2 = false;
+  private _SubLookUpIsAble3 = false;
   private _defaultEntityColor = "#2975B2";
   private _defaultTaskType: TaskType = "task";
   private _viewMode: ViewMode;
@@ -122,6 +126,18 @@ export class UniversalGanttChartComponent
     if(subLookupDisplayName != "")
     {
       this._SubLookUpIsAble = true;
+    }
+
+    const subLookupDisplayName2 = context.parameters.subLookUpHeaderDisplayName2.raw || ""; //리소스에서 사용 가능하게 해야함      
+    if(subLookupDisplayName2 != "")
+    {
+      this._SubLookUpIsAble2 = true;
+    }
+
+    const subLookupDisplayName3 = context.parameters.subLookUpHeaderDisplayName3.raw || ""; //리소스에서 사용 가능하게 해야함      
+    if(subLookupDisplayName3 != "")
+    {
+      this._SubLookUpIsAble3 = true;
     }
     
     try {
@@ -219,6 +235,8 @@ export class UniversalGanttChartComponent
         onExpanderStateChange: this.handleExpanderStateChange,
         subOptionDisplayName,
         subLookupDisplayName,
+        subLookupDisplayName2,
+        subLookupDisplayName3,
       });
 
       ReactDOM.render(gantt, this._container);
@@ -333,7 +351,7 @@ export class UniversalGanttChartComponent
           }
         }
 
-        debugger;
+        //debugger;
         //추가
         if(subOption && this._SubOptionIsAble)
         {
@@ -364,7 +382,7 @@ export class UniversalGanttChartComponent
           task.subOptionValue = "";
         }
 
-        debugger;
+        //debugger;
 
         if(subLookup && this._SubLookUpIsAble)
         {
@@ -388,12 +406,52 @@ export class UniversalGanttChartComponent
           }
           else
           {
-            task.subLookupValue = subLookup.name || "";
+            task.subLookupValue = "";
           }
         }
         else if(this._SubLookUpIsAble)
         {
           task.subLookupValue = "";
+        }
+
+        if(subLookup && this._SubLookUpIsAble2)
+        {
+          //debugger;
+          if(tasksDataset != undefined)
+          {
+            
+            const subLookupGetColumnItem2 = <string>tasksDataset.records[subLookup.id.guid].getValue(this._selectedtaskNameStr2);
+            
+            task.subLookupValue2 = subLookupGetColumnItem2 || "";
+          }
+          else
+          {
+            task.subLookupValue2 =  "";
+          }
+        }
+        else if(this._SubLookUpIsAble2)
+        {
+          task.subLookupValue2 = "";
+        }
+
+        if(subLookup && this._SubLookUpIsAble3)
+        {
+          //debugger;
+          if(tasksDataset != undefined)
+          {
+            
+            const subLookupGetColumnItem3 = <string>tasksDataset.records[subLookup.id.guid].getValue(this._selectedtaskNameStr3);
+            
+            task.subLookupValue3 = subLookupGetColumnItem3 || "";
+          }
+          else
+          {
+            task.subLookupValue3 = "";
+          }
+        }
+        else if(this._SubLookUpIsAble3)
+        {
+          task.subLookupValue3 = "";
         }
 
         tasks.push(task);
