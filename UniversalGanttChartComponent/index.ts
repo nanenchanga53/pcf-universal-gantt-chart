@@ -25,6 +25,8 @@ export class UniversalGanttChartComponent
   private _selectedtaskNameStr = "taskName";
   private _dataSetName = "entityDataSet";
   private _tasksDatasetName = "tasksDataset";
+  private _SubOptionIsAble = false;
+  private _SubLookUpIsAble = false;
   private _defaultEntityColor = "#2975B2";
   private _defaultTaskType: TaskType = "task";
   private _viewMode: ViewMode;
@@ -82,7 +84,7 @@ export class UniversalGanttChartComponent
     //(this._dataSet as any).addColumn("cr072_subname", "ParentRelation");
     //debugger;
 
-    context.parameters.entityDataSet.paging.setPageSize(1000);
+    context.parameters.entityDataSet.paging.setPageSize(3000);
   }
 
   public updateView(context: ComponentFramework.Context<IInputs>): void {
@@ -109,6 +111,19 @@ export class UniversalGanttChartComponent
     )
       return;
 
+    //추가 헤더
+    const subOptionDisplayName = context.parameters.subOptionHeaderDisplayName.raw || ""; //리소스에서 사용 가능하게 해야함
+    if(subOptionDisplayName != "")
+    {
+      this._SubOptionIsAble = true;
+    }
+    
+    const subLookupDisplayName = context.parameters.subLookUpHeaderDisplayName.raw || ""; //리소스에서 사용 가능하게 해야함      
+    if(subLookupDisplayName != "")
+    {
+      this._SubLookUpIsAble = true;
+    }
+    
     try {
       const tasks = await this.generateTasks(
         context,
@@ -120,9 +135,16 @@ export class UniversalGanttChartComponent
       if (!this._locale) {
         this._locale = await this.getLocalCode(context);
       }
+      const listNameCellWidth = !!context.parameters.listNameCellWidth.raw
+        ? `${context.parameters.listNameCellWidth.raw}px`
+        : "";
+
       const listCellWidth = !!context.parameters.listCellWidth.raw
         ? `${context.parameters.listCellWidth.raw}px`
         : "";
+      
+      
+      //debugger;
       //header display names
       const recordDisplayName =
         context.parameters.customHeaderDisplayName.raw || nameField.displayName;
@@ -135,10 +157,7 @@ export class UniversalGanttChartComponent
         context.parameters.customHeaderProgressName.raw ||
         (!!progressField ? progressField.displayName : "");
 
-      //추가 헤더
-      const subOptionDisplayName = context.parameters.subOptionHeaderDisplayName.raw || "선택항목"; //리소스에서 사용 가능하게 해야함
-      const subLookupDisplayName = context.parameters.subLookUpHeaderDisplayName.raw || "조회항목"; //리소스에서 사용 가능하게 해야함
-
+      
 
       //height setup
       const rowHeight = !!context.parameters.rowHeight.raw
@@ -179,6 +198,7 @@ export class UniversalGanttChartComponent
         startFieldName: startField.name,
         endFieldName: endField.name,
         progressFieldName: progressFieldName,
+        listNameCellWidth: listNameCellWidth,
         listCellWidth: listCellWidth,
         timeStep: context.parameters.timeStep.raw,
         rowHeight: rowHeight,
@@ -313,8 +333,9 @@ export class UniversalGanttChartComponent
           }
         }
 
+        debugger;
         //추가
-        if(subOption)
+        if(subOption && this._SubOptionIsAble)
         {
           
           //debugger;
@@ -335,17 +356,21 @@ export class UniversalGanttChartComponent
            )?.Label;
           //debugger;
 
-          task.subOptionValue = subOptionLable || "못 불러옴";
+          task.subOptionValue = subOptionLable || "";
 
         }
-
-        if(subLookup)
+        else if(this._SubOptionIsAble)
         {
-          debugger;
+          task.subOptionValue = "";
+        }
+
+        debugger;
+
+        if(subLookup && this._SubLookUpIsAble)
+        {
+          //debugger;
           if(tasksDataset != undefined)
           {
-            //debugger;
-
             //(dataset as any).addColumn("cr072_subname", "ParentRelation");
             //const subLookupColum = dataset.columns.find((c) => c.alias == this._subLookUpStr);
 
@@ -358,17 +383,17 @@ export class UniversalGanttChartComponent
             
             const subLookupGetColumnItem = <string>tasksDataset.records[subLookup.id.guid].getValue(this._selectedtaskNameStr);
             
-            
-
-            //debugger;
 
             task.subLookupValue = subLookupGetColumnItem || "";
           }
           else
           {
-            task.subLookupValue = subLookup.name;
+            task.subLookupValue = subLookup.name || "";
           }
-
+        }
+        else if(this._SubLookUpIsAble)
+        {
+          task.subLookupValue = "";
         }
 
         tasks.push(task);

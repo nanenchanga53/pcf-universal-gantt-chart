@@ -7,12 +7,14 @@ export const createHeaderLocal = (
   subOptionDisplayName:string,
   subLookUpDisplayName:string,
 ): React.FunctionComponent<{
-  headerHeight: number;
+  rowNameWidth: string;
+  headerHeight: number;  
   rowWidth: string;
   fontFamily: string;
   fontSize: string;
 }> => {
-  return ({ headerHeight, fontFamily, fontSize, rowWidth }) => {
+  return ({rowNameWidth, headerHeight, fontFamily, fontSize, rowWidth }) => {
+    
     return (
       <div
         className="Gantt-Table"
@@ -38,7 +40,7 @@ export const createHeaderLocal = (
           <div
             className="Gantt-Table_Header-Item"
             style={{
-              minWidth: rowWidth,
+              minWidth: rowNameWidth == undefined ? "180px" : rowNameWidth,
             }}
           >
             &nbsp;{recordDisplayName}
@@ -73,36 +75,50 @@ export const createHeaderLocal = (
           >
             &nbsp;{endDisplayName}
           </div>
-          <div
-            className="Gantt-Table_Header-Separator"
-            style={{
-              height: headerHeight * 0.5,
-              marginTop: headerHeight * 0.25,
-            }}
-          />
-          <div
-            className="Gantt-Table_Header-Item"
-            style={{
-              minWidth: rowWidth,
-            }}
-          >
-            &nbsp;{subOptionDisplayName}
-          </div>
-          <div
-            className="Gantt-Table_Header-Separator"
-            style={{
-              height: headerHeight * 0.5,
-              marginTop: headerHeight * 0.25,
-            }}
-          />
-          <div
-            className="Gantt-Table_Header-Item"
-            style={{
-              minWidth: rowWidth,
-            }}
-          >
-            &nbsp;{subLookUpDisplayName}
-          </div>
+
+          
+          {
+            subOptionDisplayName != "" && 
+            <div
+              className="Gantt-Table_Header-Separator"
+              style={{
+                height: headerHeight * 0.5,
+                marginTop: headerHeight * 0.25
+              }}
+            />
+          }
+          {
+            subOptionDisplayName != "" &&
+            <div
+              className="Gantt-Table_Header-Item"
+              style={{
+                minWidth: rowWidth,
+              }}
+            >
+              &nbsp;{subOptionDisplayName}
+            </div>
+          }
+          {
+            subLookUpDisplayName != "" &&
+            <div
+              className="Gantt-Table_Header-Separator"
+              style={{
+                height: headerHeight * 0.5,
+                marginTop: headerHeight * 0.25,
+              }}
+            />
+          }
+          {
+            subLookUpDisplayName != "" &&
+            <div
+              className="Gantt-Table_Header-Item"
+              style={{
+                minWidth: rowWidth,
+              }}
+            >
+              &nbsp;{subLookUpDisplayName}
+            </div>
+          }
         </div>
       </div>
     );

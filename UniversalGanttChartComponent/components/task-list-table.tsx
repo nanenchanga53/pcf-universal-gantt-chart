@@ -7,7 +7,8 @@ export const createTaskListLocal = (
   formatDateShort: (value: Date, includeTime?: boolean) => string,
   
 ): React.FunctionComponent<{
-  rowHeight: number;
+  rowNameWidth: string;
+  rowHeight: number;  
   rowWidth: string;
   fontFamily: string;
   fontSize: string;
@@ -18,6 +19,7 @@ export const createTaskListLocal = (
   onExpanderClick: (task: Task) => void;
 }> => {
   return ({
+    rowNameWidth,
     rowHeight,
     rowWidth,
     tasks,
@@ -71,8 +73,11 @@ export const createTaskListLocal = (
               <div
                 className="Gantt-Task-List_Cell"
                 style={{
-                  minWidth: rowWidth,
-                  maxWidth: rowWidth,
+                  //minWidth: rowNameWidth,
+                  //maxWidth: rowNameWidth,
+                  
+                  minWidth: rowNameWidth == undefined ? "180px" : rowNameWidth,
+                  maxWidth: rowNameWidth == undefined ? "180px" : rowNameWidth,
                 }}
                 title={t.name}
               >
@@ -94,7 +99,7 @@ export const createTaskListLocal = (
                     className="Gantt-Task-List_Cell__Link"
                     onClick={() => onClick(t)}
                   >
-                    {t.name}
+                    {t.name + rowNameWidth}
                   </div>
                 </div>
               </div>
@@ -124,6 +129,9 @@ export const createTaskListLocal = (
               >
                 &nbsp;{formatDateShort(t.end, includeTime)}
               </div>
+
+              {
+                t.subOptionValue != undefined &&
               <div
                 className="Gantt-Task-List_Cell"
                 style={{
@@ -134,6 +142,9 @@ export const createTaskListLocal = (
               >
                 &nbsp;{t.subOptionValue || ""}
               </div>
+              }
+              {
+                t.subLookupValue != undefined &&
               <div
                 className="Gantt-Task-List_Cell"
                 style={{
@@ -144,6 +155,7 @@ export const createTaskListLocal = (
               >
                 &nbsp;{t.subLookupValue || ""}
               </div>
+              }
             </div>
           );
         })}

@@ -41,12 +41,27 @@
       <property-set name="subLookup" display-name-key="subLookupRecord" description-key="sub Lookup record reference" of-type="Lookup.Simple" usage="input" required="false" />
       
     </data-set>
+
+    <type-group name="LookupData.All">
+      <type>SingleLine.Text</type>
+      <type>Whole.None</type>
+      <type>OptionSet</type>
+      <type>DateAndTime.DateAndTime</type>
+      <type>DateAndTime.DateOnly</type>
+    </type-group>
+
+    <!-- 조회레코드를 검색하기 위한 데이터셋 -->
     <data-set name="tasksDataset" display-name-key="Dataset_Display_Key" cds-data-set-options="displayCommandBar:true;displayViewSelector:true;displayQuickFind:true">
-      <property-set name="taskName" display-name-key="Property_Display_Key1" description-key="Property_Desc_Key1" of-type="SingleLine.Text" usage="bound" required="false" />    
+      <property-set name="taskName" display-name-key="Property_Display_Key1" description-key="Property_Desc_Key1" of-type-group="LookupData.All" usage="bound" required="false" />
+      <property-set name="taskName2" display-name-key="Property_Display_Key2" description-key="Property_Desc_Key2" of-type-group="LookupData.All" usage="bound" required="false" />
+      <property-set name="taskName3" display-name-key="Property_Display_Key3" description-key="Property_Desc_Key3" of-type-group="LookupData.All" usage="bound" required="false" />   
     </data-set>
 
-    <property name="subLookupEntityName" display-name-key="subLookup EntityName" description-key="If name subLookup need, write lookup Entity name " of-type="SingleLine.Text" usage="input" required="false" />
-    <property name="subLookupRecordName" display-name-key="subLookup RecordName" description-key="If name subLookup need, write lookup Record name " of-type="SingleLine.Text" usage="input" required="false" />
+    
+
+    <!-- 만약 정 안되면 시도해보자<data-set name="childDataset" display-name-key="ChildDataset" > 
+      <property-set name="lookupId" display-name-key="Lookup to parent" description-key="Lookup To parent" of-type="Lookup.Simple" usage="bound" required="true" />      
+    </data-set> -->
 
     <property name="subOptionHeaderDisplayName" display-name-key="subOptionHeader Display Name" description-key="subOptionHeader DisplayName" of-type="SingleLine.Text" usage="input" required="false"/>
     <property name="subLookUpHeaderDisplayName" display-name-key="subLookUpHeader Display Name" description-key="subLookUpHeader DisplayName" of-type="SingleLine.Text" usage="input" required="false"/>
@@ -88,7 +103,8 @@
 
     <property name="headerHeight" display-name-key="Header Height" description-key="Default header height for gantt. Unit of the measure is a pixel" of-type="Whole.None" usage="input" required="true" default-value="50"/>
     <property name="rowHeight" display-name-key="Row Height" description-key="Default row height for gantt. Unit of the measure is a pixel" of-type="Whole.None" usage="input" required="true" default-value="50"/>
-    <property name="listCellWidth" display-name-key="List`s Cell Width" description-key="Default cell width for list. Unit of the measure is a pixel" of-type="Whole.None" usage="input" required="true" default-value="155"/>
+    <property name="listNameCellWidth" display-name-key="List`s Name Cell Width" description-key="Default Name cell width for list. Unit of the measure is a pixel" of-type="Whole.None" usage="input" required="true" default-value="170"/>
+    <property name="listCellWidth" display-name-key="List`s Cell Width" description-key="Default cell width for list. Unit of the measure is a pixel" of-type="Whole.None" usage="input" required="true" default-value="120"/>
     <property name="columnWidthQuarter" display-name-key="Column Width for Quarter of Day" description-key="Default column width for quarter of day view for gantt. Unit of the measure is a pixel" of-type="Whole.None" usage="input" required="true" default-value="60"/>
     <property name="columnWidthHalf" display-name-key="Column Width for Half of Day" description-key="Default column width for half of day view for gantt. Unit of the measure is a pixel" of-type="Whole.None" usage="input" required="true" default-value="60"/>
     <property name="columnWidthDay" display-name-key="Column Width for Day" description-key="Default column width for day view for gantt. Unit of the measure is a pixel" of-type="Whole.None" usage="input" required="true" default-value="60"/>
@@ -105,6 +121,10 @@
     <property name="customProgressColor" display-name-key="Custom Progress Color" description-key="Defines Bar progress color" of-type="SingleLine.Text" usage="input" required="false"/>
     <property name="customProgressSelectedColor" display-name-key="Custom Progress Selected Color" description-key="Defines Bar progress color on select" of-type="SingleLine.Text" usage="input" required="false"/>
 
+
+    <!-- 조회항목의 이름만 알면 검색하도록 만들기 위해 설정해놨는데 잘 안되서 일단 놔둠 -->
+    <property name="subLookupEntityName" display-name-key="subLookup EntityName" description-key="조회항목의 이름만 알면 검색하도록 만들기 위해 설정해놨는데 잘 안되서 일단 놔둠 " of-type="SingleLine.Text" usage="input" required="false" />
+    <property name="subLookupRecordName" display-name-key="subLookup RecordName" description-key="조회항목의 이름만 알면 검색하도록 만들기 위해 설정해놨는데 잘 안되서 일단 놔둠 " of-type="SingleLine.Text" usage="input" required="false" />
 
 
     <resources>

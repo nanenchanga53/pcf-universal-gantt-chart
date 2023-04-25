@@ -33,6 +33,7 @@ export type UniversalGanttProps = {
   ganttHeight?: number;
   rowHeight: number;
   headerHeight: number;
+  listNameCellWidth: string;
   listCellWidth: string;
   columnWidthQuarter: number;
   columnWidthHalf: number;
@@ -132,13 +133,14 @@ export const UniversalGantt: React.FunctionComponent<UniversalGanttProps> = (
     headerHeight: props.headerHeight,
     rowHeight: props.rowHeight,
     barCornerRadius: 0,
+    listNameCellWidth: props.listNameCellWidth,
     listCellWidth: props.listCellWidth,
     TaskListHeader: createHeaderLocal(
       props.recordDisplayName,
       props.startDisplayName,
       props.endDisplayName,
       props.subOptionDisplayName,
-      props.subLookupDisplayName,
+      props.subLookupDisplayName
     ),
     TooltipContent: createTooltip(
       props.startDisplayName,
