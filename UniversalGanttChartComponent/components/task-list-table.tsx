@@ -99,7 +99,7 @@ export const createTaskListLocal = (
                     className="Gantt-Task-List_Cell__Link"
                     onClick={() => onClick(t)}
                   >
-                    {t.name + rowNameWidth}
+                    {t.name}
                   </div>
                 </div>
               </div>
