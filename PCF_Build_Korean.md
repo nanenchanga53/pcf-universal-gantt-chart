@@ -11,3 +11,9 @@
 4. 터미널에서 `pac auth create --url https://{환경명.crm.dynamics.com}`을 입력하여 솔루션을 업로드하고 싶은 환경에 로그인한다.(pac 명령어를 사용하려면 [Power Platform CLI를 설치해야한다.](https://learn.microsoft.com/en-us/power-platform/developer/cli/introduction) 가장 쉬운 방법은 vscode에서 'Power Platform VS Code Extention' 패키지를 설치하는 것이다.)
 
 5. 다음 명령어를 실행해 PCF 솔루션을 업로드한다. samples 부분을 변경하면서 올려보자 `pac pcf push --publisher-prefix samples`
+
+## 각 나라 언어 리소스 적용 방법
+
+1. `ControlManifest.Input.xml` 파일에서 `<resources>` 영역에서 `<resx path="strings/UniversalGanttChartComponent.언어코드.resx">`을 추가한다.(미국 영어는 1033 - 한국 1042)
+
+2. 각 리소스 resx 파일에서 적용된 것을 사용하려면 코드에서 `context.resources.getString("리소스명")` 형식으로 사용한다.
