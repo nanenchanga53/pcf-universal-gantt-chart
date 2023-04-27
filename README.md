@@ -2,7 +2,7 @@
 
 ## 캔버스앱과 모델기반앱에서 사용가능한 간트차트 PCF
 
-![예시](https://github.com/MaTeMaTuK/pcf-universal-gantt-chart/blob/master/DocumentationAssets/ganttStandard.gif)
+![예시](https://raw.githubusercontent.com/MaTeMaTuK/pcf-universal-gantt-chart/master/DocumentationAssets/ganttStandard.gif)
 
 ## 설정
 아래 설정은 원본에 있는 것들만 적혀있습니다. 수정, 추가본은 'Model Driven Guide' 쪽 문서에서 다루겠습니다.
