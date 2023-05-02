@@ -12,21 +12,21 @@ export const ViewSwitcher: React.FunctionComponent<{
         className="Gantt-Button Gantt-Button_Header"
         onClick={() => onViewChange(ViewMode.QuarterDay)}
       >
-        {context.resources.getString("Quarter_Of_Day_Name")}
+        {context.resources.getString("Quarter_Of_Day_Name") || "quarter of day"}
       </button>
       <div className="Gantt-Header_Separator">|</div>
       <button
         className="Gantt-Button Gantt-Button_Header"
         onClick={() => onViewChange(ViewMode.HalfDay)}
       >
-        {context.resources.getString("Half_Of_Day_Name")}
+        {context.resources.getString("Half_Of_Day_Name") || "Half_Of_Day"}
       </button>
       <div className="Gantt-Header_Separator">|</div>
       <button
         className="Gantt-Button Gantt-Button_Header"
         onClick={() => onViewChange(ViewMode.Day)}
       >
-        {context.resources.getString("Day_Name")}
+        {context.resources.getString("Day_Name") || "Day"}
       </button>
       <div className="Gantt-Header_Separator">|</div>
       <button
@@ -40,7 +40,7 @@ export const ViewSwitcher: React.FunctionComponent<{
         className="Gantt-Button Gantt-Button_Header"
         onClick={() => onViewChange(ViewMode.Month)}
       >
-        {context.resources.getString("Month_Name")}
+        {context.resources.getString("Month_Name") || "Month"}
       </button>
     </div>
   );

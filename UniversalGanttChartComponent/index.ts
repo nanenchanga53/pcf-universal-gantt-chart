@@ -7,6 +7,7 @@ import { UniversalGantt } from "./components/universal-gantt";
 import { generate } from "@ant-design/colors";
 import { TaskType } from "gantt-task-react/dist/types/public-types";
 import { isErrorDialogOptions } from "./helper";
+import { Console } from "console";
 
 type DataSet = ComponentFramework.PropertyTypes.DataSet;
 
@@ -68,30 +69,40 @@ export class UniversalGanttChartComponent
       context.userSettings.getTimeZoneOffsetMinutes(new Date()) +
       new Date().getTimezoneOffset();
     this._projects = {};
-    //cr072_onlynametable
-    console.log(context.parameters.entityDataSet.getTargetEntityType());
-    const subParentEntityName = context.parameters.subLookupEntityName.raw;
-    const subParentId = context.parameters.entityDataSet.columns.find((c) => c.alias=== "subLookup");
+    context.parameters.entityDataSet.paging.setPageSize(1000);
+
+
+    // //cr072_onlynametable
+    // console.log(context.parameters.entityDataSet.getTargetEntityType());
+    // const subParentEntityName = context.parameters.subLookupEntityName.raw;
+    // const subParentId = context.parameters.entityDataSet.columns.find((c) => c.alias=== "subLookup");
     
-    //아래를 이용해서 연결을 만들어둔 것을 이용해 이후 연결을 이용하여 검색할 수 있다고 하는데 잘 모르겠음
-    if(subParentEntityName!=null && subParentId!=null){
-      context.parameters.entityDataSet.linking.addLinkedEntity({
-        name: "cr072_gantttabletest",
-        from : "cr072_gantttabletestid",
-        to:  "cr072_onlynametable",
-        linkType: "inner",
-        alias: "ParentRelation"
-        })    
-    }
+    // //아래를 이용해서 연결을 만들어둔 것을 이용해 이후 연결을 이용하여 검색할 수 있다고 하는데 잘 모르겠음
+    // if(subParentEntityName!=null && subParentId!=null){
+    //   context.parameters.entityDataSet.linking.addLinkedEntity({
+    //     name: "cr072_gantttabletest",
+    //     from : "cr072_gantttabletestid",
+    //     to:  "cr072_onlynametable",
+    //     linkType: "inner",
+    //     alias: "ParentRelation"
+    //     })    
+    // }
 
     //debugger;
     //(this._dataSet as any).addColumn("cr072_subname", "ParentRelation");
     //debugger;
 
-    context.parameters.entityDataSet.paging.setPageSize(3000);
+    
   }
 
   public updateView(context: ComponentFramework.Context<IInputs>): void {
+    context.parameters.entityDataSet.paging.setPageSize(1000);
+    //debugger;
+    if(context.parameters.entityDataSet.paging.pageSize == 50 && context.parameters.entityDataSet.paging.totalResultCount > 50)
+    {
+      context.parameters.entityDataSet.refresh();
+    }
+    //context.parameters.entityDataSet.paging.setPageSize(1000);
     this.updateViewAsync(context);
   }
 
@@ -101,6 +112,7 @@ export class UniversalGanttChartComponent
   private async updateViewAsync(context: ComponentFramework.Context<IInputs>) {
     this._dataSet = context.parameters.entityDataSet;
     this._tasksDataset = context.parameters.tasksDataset;
+    this._dataSet.paging.setPageSize(1000);
     //Columns retrieve
     const columns = this._dataSet.columns;
     const nameField = columns.find((c) => c.alias === this._displayNameStr);
